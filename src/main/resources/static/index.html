@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="file-structure">
+    <h1>File Upload Test</h1>
+    <form id="uploadForm">
+        <label for="userName">유저 이름:</label>
+        <input type="text" id="userName" name="userName" required><br/>
+        <label for="file">선택한 파일:</label>
+        <input type="file" id="file" name="file" required><br/><br/>
+        <button type="submit">파일 업로드</button>
+    </form>
+    <div id="fileInfo"></div>
+    <div style="height: 50px;"></div>
+    <ul id="directory" class="directory"></ul>
+</div>
+
+<div class="file-structure">
+    <h1>Viewer</h1>
+    <div class="description">확장자가 png, jpg, jpeg 인 경우, 미리보기가 가능합니다.</div>
+    <div style="height: 50px;"></div>
+    <div>
+        <div id="content"></div>
+    </div>
+    <div style="height: 50px;"></div>
+</div>
+<script src="upload.js"></script>
+</body>
+</html>
