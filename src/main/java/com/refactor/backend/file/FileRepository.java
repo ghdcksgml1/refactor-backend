@@ -5,10 +5,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
@@ -41,4 +38,13 @@ public class FileRepository {
         fileInfoMap = newFileInfoMap;
     }
 
+    public List<List<FileInfo>> findAll() {
+        return fileInfoMap.values().stream().toList();
+    }
+
+    public Optional<FileInfo> findByKeyAndFileName(String name, String fileName) {
+        return fileInfoMap.get(name).stream()
+                .filter(fileInfo -> fileInfo.filename().equals(fileName))
+                .findFirst();
+    }
 }
