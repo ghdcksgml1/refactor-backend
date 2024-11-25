@@ -41,10 +41,4 @@ public class FileRepository {
     public List<List<FileInfo>> findAll() {
         return fileInfoMap.values().stream().toList();
     }
-
-    public Optional<FileInfo> findByKeyAndFileName(String name, String fileName) {
-        return fileInfoMap.get(name).stream()
-                .filter(fileInfo -> fileInfo.filename().equals(fileName))
-                .findFirst();
-    }
 }

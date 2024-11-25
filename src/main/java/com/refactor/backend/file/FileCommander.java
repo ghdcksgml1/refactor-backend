@@ -6,10 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -23,10 +20,10 @@ public class FileCommander {
         Path savedFilePath = BASE_PATH.resolve(Path.of(userName, filename)); // storage/chhong/abce.png
         createParentDirectories(savedFilePath);
         try (
-                InputStream is = file.getInputStream();
-                OutputStream os = Files.newOutputStream(savedFilePath);
+                OutputStream os = new FileOutputStream(savedFilePath.toFile());
         ) {
-            StreamUtils.copy(is, os);
+            byte[] bytes = file.getBytes();
+            os.write(bytes);
         } catch (IOException e) {
             throw new RuntimeException("저장 중 예외가 발생했습니다.");
         }
@@ -34,7 +31,7 @@ public class FileCommander {
 
     public static Resource getResource(String userName, String filename) {
         File file = BASE_PATH.resolve(Path.of(userName, filename)).toFile();
-        return new InputStreamResource(new FileSystemResource(file));
+        return new FileSystemResource(file);
     }
 
     private static void createParentDirectories(Path filePath) {

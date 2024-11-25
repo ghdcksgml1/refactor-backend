@@ -27,15 +27,7 @@ public class FileService {
     }
 
     public FileResource getUserFileResource(String userName, String filename) {
-        Optional<FileInfo> optionalFileInfo = fileRepository.findByKeyAndFileName(userName, filename);
-
-        if (optionalFileInfo.isEmpty()) {
-            throw new RuntimeException("요청한 파일이 존재하지 않습니다.");
-        }
-
-        FileInfo fileInfo = optionalFileInfo.get();
-        Resource fileResource = FileCommander.getResource(fileInfo.userName(), fileInfo.filename());
-
+        Resource fileResource = FileCommander.getResource(userName, filename);
         return new FileResource(fileResource, "image/png", filename);
     }
 
@@ -44,3 +36,4 @@ public class FileService {
         fileRepository.reloadFileInfos();
     }
 }
+
