@@ -19,11 +19,8 @@ public class FileCommander {
     public static void saveFile(String userName, String filename, MultipartFile file) {
         Path savedFilePath = BASE_PATH.resolve(Path.of(userName, filename)); // storage/chhong/abce.png
         createParentDirectories(savedFilePath);
-        try (
-                OutputStream os = new FileOutputStream(savedFilePath.toFile());
-        ) {
-            byte[] bytes = file.getBytes();
-            os.write(bytes);
+        try {
+            file.transferTo(savedFilePath);
         } catch (IOException e) {
             throw new RuntimeException("저장 중 예외가 발생했습니다.");
         }
